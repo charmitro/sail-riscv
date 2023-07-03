@@ -435,7 +435,7 @@ function clause execute (RISCV_VAESKF2_VI(vs2, rnd, vd)) = {
     let 'm = SEW;
     assert('m == 32);
 
-    rnd_val : bits(4)                   = rnd[3..0];
+    rnd_val : bits(4)			    = rnd[3..0];
     let vs2_val : vector('n, dec, bits('m)) = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     let vd_val  : vector('n, dec, bits('m)) = read_vreg(num_elem, SEW, LMUL_pow, vd);
     result      : vector('n, dec, bits('m)) = undefined;
@@ -467,7 +467,7 @@ function clause execute (RISCV_VAESKF2_VI(vs2, rnd, vd)) = {
 		   aes_subword_fwd(current_round_key[127..96]) ^ round_key_b[31..0]
 		 else
 		   aes_subword_fwd(aes_rotword(current_round_key[127..96]))
-		     ^ aes_decode_rcon(rnd_val >> 1)
+		     ^ aes_decode_rcon((rnd_val >> 1) - 1)
 		     ^ round_key_b[31..0];
 
       w[63..32]  = w[31..0]  ^ round_key_b[63..32];
